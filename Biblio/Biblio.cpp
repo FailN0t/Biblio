@@ -3,14 +3,49 @@
 
 #include "Primer.h"
 #include <vector>
+#include <list>
+#include <time.h>
 using namespace std;
+
+template <class T>
+void write(T& t) {
+	for (auto it = t.begin(); it != t.end(); it++) {
+		for (auto jt = it->begin(); jt != it->end(); jt++) {
+			*jt = rand() % 9 + 1;
+		}
+	}
+}
+
+template <class T>
+void print(T& t) {
+	for (auto it = t.begin(); it != t.end(); it++) {
+		for (auto jt = it->begin(); jt != it->end(); jt++) {
+			cout << *jt << "\t";
+		}
+		cout << endl;
+	}
+}
+
 
 int main()
 {
 
-    vector<int> vc;
-    for(int i = 0; i < 100 ; i)
-    
+	srand(time(NULL));
+	vector<vector<int>> vc(5, vector<int>(5));
+
+	write(vc);
+	
+	print(vc);
+
+	cout << endl << endl;
+
+	list<list<int>> lt(5, list<int>(5));
+
+	write(lt);
+
+	print(lt);
+
+
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
