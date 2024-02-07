@@ -5,46 +5,53 @@
 #include <vector>
 #include <list>
 #include <time.h>
+#include <map>
 using namespace std;
 
-template <class T>
-void write(T& t) {
-	for (auto it = t.begin(); it != t.end(); it++) {
-		for (auto jt = it->begin(); jt != it->end(); jt++) {
-			*jt = rand() % 9 + 1;
-		}
-	}
-}
-
-template <class T>
-void print(T& t) {
-	for (auto it = t.begin(); it != t.end(); it++) {
-		for (auto jt = it->begin(); jt != it->end(); jt++) {
-			cout << *jt << "\t";
-		}
-		cout << endl;
-	}
-}
 
 
 int main()
 {
+	map<string, int> mp;
 
-	srand(time(NULL));
-	vector<vector<int>> vc(5, vector<int>(5));
+	multimap<string, int> mlp;
 
-	write(vc);
-	
-	print(vc);
+	mlp.insert(pair<string, int>("Fedya", 45));
+	mlp.insert(pair<string, int>("Georgi", 23));
+	mlp.insert(pair<string, int>("Alisa", 12));
+	mlp.insert(pair<string, int>("Alisa", 29));
+	mlp.insert(pair<string, int>("Alisa", 29));
+
+
+	mp["Sasha"] = 12;
+	mp["Yulya"] = 20;
+	mp["Kolya"] = 16;
+	mp["Kolya"] = 56;
+
+	pair<map<string, int>::iterator, bool> err = mp.insert(pair<string, int>("Vasya", 90));
+
+	if (err.second == false) {
+		cout << "err" << endl;
+		cout << err.first->first << "\t" << err.first->second << endl;
+	}
+
+	for (auto it = mp.begin(); it != mp.end(); it++) {
+		cout << "first " << it->first << "\t" << "second " << it->second << endl;
+	}
 
 	cout << endl << endl;
 
-	list<list<int>> lt(5, list<int>(5));
+	for (auto it = mlp.begin(); it != mlp.end(); it++) {
+		cout << "first " << it->first << "\t" << "second " << it->second << endl;
+	}
 
-	write(lt);
+	for (auto it = mlp.find("Alisa"); it->first == "Alisa"; it++) {
+		cout << "first " << it->first << "\t" << "second " << it->second << endl;
+	}
 
-	print(lt);
-
+	multimap<string, int>::iterator itr = mlp.find("Alisa2");
+	cout << endl << endl;
+	cout << (itr == mlp.end()) << endl;
 
 }
 
