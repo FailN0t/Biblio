@@ -56,10 +56,11 @@ public:
 		mpS[Famili][Imya][Otch][age] = new Student(Famili, Imya, Otch, age);
 	}
 
-	Student& getStudent(string Famili = "Ivanov",
+	Student getStudent(string Famili = "Ivanov",
 		string Imya = "Ivan",
 		string Otch = "Ivanovich",
 		int age = -1) {
+
 		return *mpS[Famili][Imya][Otch][age];
 	}
 
