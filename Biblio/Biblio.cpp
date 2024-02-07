@@ -8,6 +8,41 @@
 #include <map>
 using namespace std;
 
+class Student;
+
+
+class MpStud:public Student {
+	map<string, map<string, map<string, map<int, Student>>>> mpS;
+
+
+};
+
+class Student {
+protected:
+	string Famili;
+	string Imya;
+	string Otch;
+	int age;
+public:
+	Student(string Famili = "Ivanov",
+		string Imya = "Ivan",
+		string Otch = "Ivanovich",
+		int age = -1) {
+
+		this->Famili = Famili;
+		this->Imya = Imya;
+		this->Otch = Otch;
+		this->age = age;
+
+	}
+	void print() {
+		cout << "Famili = " << Famili << endl;
+		cout << "Imya = " << Imya << endl;
+		cout << "Otch = " << Otch << endl;
+		cout << "age = " << age << endl;
+	}
+};
+
 
 
 int main()
@@ -49,9 +84,6 @@ int main()
 		cout << "first " << it->first << "\t" << "second " << it->second << endl;
 	}
 
-	multimap<string, int>::iterator itr = mlp.find("Alisa2");
-	cout << endl << endl;
-	cout << (itr == mlp.end()) << endl;
 
 }
 
