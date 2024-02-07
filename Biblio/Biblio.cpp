@@ -8,15 +8,6 @@
 #include <map>
 using namespace std;
 
-class Student;
-
-
-class MpStud:public Student {
-	map<string, map<string, map<string, map<int, Student>>>> mpS;
-
-
-};
-
 class Student {
 protected:
 	string Famili;
@@ -35,6 +26,9 @@ public:
 		this->age = age;
 
 	}
+	//Student() :Student("Ivanov", "Ivan", "Ivanovich", -1) {
+
+	//}
 	void print() {
 		cout << "Famili = " << Famili << endl;
 		cout << "Imya = " << Imya << endl;
@@ -44,46 +38,66 @@ public:
 };
 
 
+class MpStud:public Student {
+	map<string, map<string, map<string, map<int, Student*>>>> mpS;
+
+public:
+	MpStud(string Famili = "Ivanov",
+		string Imya = "Ivan",
+		string Otch = "Ivanovich",
+		int age = -1) {
+		mpS[Famili][Imya][Otch][age] = new Student(Famili, Imya, Otch, age);
+	}
+
+	void add(string Famili = "Ivanov",
+		string Imya = "Ivan",
+		string Otch = "Ivanovich",
+		int age = -1) {
+		mpS[Famili][Imya][Otch][age] = new Student(Famili, Imya, Otch, age);
+	}
+
+	Student& getStudent(string Famili = "Ivanov",
+		string Imya = "Ivan",
+		string Otch = "Ivanovich",
+		int age = -1) {
+		return *mpS[Famili][Imya][Otch][age];
+	}
+
+	void print() {
+
+		for (auto it = mpS.begin(); it != mpS.end(); it++) {
+			for (auto jt = it->second.begin(); jt != it->second.end(); jt++) {
+				for (auto kt = jt->second.begin(); kt != jt->second.end(); kt++) {
+					for (auto mt = kt->second.begin(); mt != kt->second.end(); mt++) {
+						mt->second->print();
+						cout << endl << endl;
+					}
+				}
+			}
+		}
+		
+
+	}
+
+};
+
+
+
+
 
 int main()
 {
-	map<string, int> mp;
-
-	multimap<string, int> mlp;
-
-	mlp.insert(pair<string, int>("Fedya", 45));
-	mlp.insert(pair<string, int>("Georgi", 23));
-	mlp.insert(pair<string, int>("Alisa", 12));
-	mlp.insert(pair<string, int>("Alisa", 29));
-	mlp.insert(pair<string, int>("Alisa", 29));
 
 
-	mp["Sasha"] = 12;
-	mp["Yulya"] = 20;
-	mp["Kolya"] = 16;
-	mp["Kolya"] = 56;
+	MpStud mpst ("Vasin", "Igor", "Olegovich", 12);
+	mpst.add();
+	mpst.add("Hieder", "Geni", "Olegovich", 12);
+	mpst.add("Vasin", "Igor", "Olegovich", 56);
+	mpst.add("Vasin", "Igor", "Olegovich", 56);
 
-	pair<map<string, int>::iterator, bool> err = mp.insert(pair<string, int>("Vasya", 90));
+	mpst.print();
 
-	if (err.second == false) {
-		cout << "err" << endl;
-		cout << err.first->first << "\t" << err.first->second << endl;
-	}
-
-	for (auto it = mp.begin(); it != mp.end(); it++) {
-		cout << "first " << it->first << "\t" << "second " << it->second << endl;
-	}
-
-	cout << endl << endl;
-
-	for (auto it = mlp.begin(); it != mlp.end(); it++) {
-		cout << "first " << it->first << "\t" << "second " << it->second << endl;
-	}
-
-	for (auto it = mlp.find("Alisa"); it->first == "Alisa"; it++) {
-		cout << "first " << it->first << "\t" << "second " << it->second << endl;
-	}
-
+	mpst.getStudent("Vasin", "Igor", "Olegovich", 12).print();
 
 }
 
